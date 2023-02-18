@@ -1,6 +1,7 @@
 import * as React from "react"
 import { validateRegex } from "../../scripts/utils"
 import { FeedFilter, FilterType } from "../../scripts/models/feed"
+import { SourceTextDirection } from "../../scripts/models/source"
 
 type HighlightsProps = {
     text: string

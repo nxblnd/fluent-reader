@@ -5,13 +5,12 @@ import { ThemeSettings } from "../schema-types"
 import intl from "react-intl-universal"
 import { SourceTextDirection } from "./models/source"
 
-const lightTheme: IPartialTheme = {
+let lightTheme: IPartialTheme = {
     defaultFontStyle: {
-        fontFamily:
-            '"Segoe UI", "Source Han Sans SC Regular", "Microsoft YaHei", sans-serif',
+        fontFamily: '"Segoe UI", "Source Han Sans Regular", sans-serif',
     },
 }
-const darkTheme: IPartialTheme = {
+let darkTheme: IPartialTheme = {
     ...lightTheme,
     palette: {
         neutralLighterAlt: "#282828",
@@ -41,6 +40,32 @@ const darkTheme: IPartialTheme = {
     },
 }
 
+export function setThemeDefaultFont(locale: string) {
+    switch (locale) {
+        case "zh-CN":
+            lightTheme.defaultFontStyle.fontFamily =
+                '"Segoe UI", "Source Han Sans SC Regular", "Microsoft YaHei", sans-serif'
+            break
+        case "zh-TW":
+            lightTheme.defaultFontStyle.fontFamily =
+                '"Segoe UI", "Source Han Sans TC Regular", "Microsoft JhengHei", sans-serif'
+            break
+        case "ja":
+            lightTheme.defaultFontStyle.fontFamily =
+                '"Segoe UI", "Source Han Sans JP Regular", "Yu Gothic UI", sans-serif'
+            break
+        case "ko":
+            lightTheme.defaultFontStyle.fontFamily =
+                '"Segoe UI", "Source Han Sans KR Regular", "Malgun Gothic", sans-serif'
+            break
+        default:
+            lightTheme.defaultFontStyle.fontFamily =
+                '"Segoe UI", "Source Han Sans Regular", sans-serif'
+    }
+    darkTheme.defaultFontStyle.fontFamily =
+        lightTheme.defaultFontStyle.fontFamily
+    applyThemeSettings()
+}
 export function setThemeSettings(theme: ThemeSettings) {
     window.settings.setThemeSettings(theme)
     applyThemeSettings()
@@ -121,6 +146,7 @@ export async function importAll() {
         const sRows = configs.lovefield.sources.map(s => {
             s.lastFetched = new Date(s.lastFetched)
             if (!s.textDir) s.textDir = SourceTextDirection.LTR
+            if (!s.hidden) s.hidden = false
             return db.sources.createRow(s)
         })
         const iRows = configs.lovefield.items.map(i => {

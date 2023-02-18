@@ -1,4 +1,5 @@
 import en_US from "./en-US.json"
+import cs from "./cs.json"
 import zh_CN from "./zh-CN.json"
 import zh_TW from "./zh-TW.json"
 import ja from "./ja.json"
@@ -14,9 +15,11 @@ import ru from "./ru.json"
 import pt_BR from "./pt-BR.json"
 import fi_FI from "./fi-FI.json"
 import ko from "./ko.json"
+import pt_PT from "./pt-PT.json"
 
 const locales = {
     "en-US": en_US,
+    "cs": cs,
     "zh-CN": zh_CN,
     "zh-TW": zh_TW,
     "ja": ja,
@@ -32,6 +35,7 @@ const locales = {
     "pt-BR": pt_BR,
     "fi-FI": fi_FI,
     "ko": ko,
+    "pt-PT": pt_PT,
 }
 
 export default locales
